@@ -1,5 +1,5 @@
-import React from "react";
-import { GitIcon } from "./icons";
+import React from 'react';
+import { GitIcon } from './icons';
 
 const GithubCard = ({ repo }) => {
   return (
@@ -16,7 +16,7 @@ const GithubCard = ({ repo }) => {
         {repo.name}
       </h3>
       <p className="text-sidebar-accent-foreground">
-        {repo.description || "No description provided."}
+        {repo.description || 'No description provided.'}
       </p>
       <div className="mt-2 flex space-x-4 text-sm text-sidebar-accent-foreground">
         <span>⭐ {repo.stargazers_count} stars</span>

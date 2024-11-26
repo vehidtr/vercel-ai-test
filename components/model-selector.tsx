@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { startTransition, useMemo, useOptimistic, useState } from "react";
+import { startTransition, useMemo, useOptimistic, useState } from 'react';
 
-import { saveModelId } from "@/app/(chat)/actions";
-import { Button } from "@/components/ui/button";
+import { saveModelId } from '@/app/(chat)/actions';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { models } from "@/lib/ai/models";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/dropdown-menu';
+import { models } from '@/lib/ai/models';
+import { cn } from '@/lib/utils';
 
-import { CheckCirclFillIcon, ChevronDownIcon } from "./icons";
+import { CheckCirclFillIcon, ChevronDownIcon } from './icons';
 
 export function ModelSelector({
   selectedModelId,
@@ -29,7 +29,7 @@ export function ModelSelector({
 
   const selectModel = useMemo(
     () => models.find((model) => model.id === optimisticModelId),
-    [optimisticModelId]
+    [optimisticModelId],
   );
 
   return (
@@ -37,8 +37,8 @@ export function ModelSelector({
       <DropdownMenuTrigger
         asChild
         className={cn(
-          "w-fit data-[state=open]:bg-accent data-[state=open]:text-accent-foreground",
-          className
+          'w-fit data-[state=open]:bg-accent data-[state=open]:text-accent-foreground',
+          className,
         )}
       >
         <Button variant="outline" className="md:px-2 md:h-[34px]">

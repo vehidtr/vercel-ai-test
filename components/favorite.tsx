@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import useSWR from "swr";
-import { useWindowSize } from "usehooks-ts";
+import { useState } from 'react';
+import useSWR from 'swr';
+import { useWindowSize } from 'usehooks-ts';
 
-import { ChatHeader } from "@/components/chat-header";
-import { PreviewMessage } from "@/components/message";
-import { useScrollToBottom } from "@/components/use-scroll-to-bottom";
-import type { Favorite, Vote } from "@/lib/db/schema";
-import { fetcher } from "@/lib/utils";
+import { ChatHeader } from '@/components/chat-header';
+import { PreviewMessage } from '@/components/message';
+import { useScrollToBottom } from '@/components/use-scroll-to-bottom';
+import type { Favorite, Vote } from '@/lib/db/schema';
+import { fetcher } from '@/lib/utils';
 
-import type { UIBlock } from "./block";
+import type { UIBlock } from './block';
 
 export function FavoriteItem({
   id,
@@ -25,10 +25,10 @@ export function FavoriteItem({
     useWindowSize();
 
   const [block, setBlock] = useState<UIBlock>({
-    documentId: "init",
-    content: "",
-    title: "",
-    status: "idle",
+    documentId: 'init',
+    content: '',
+    title: '',
+    status: 'idle',
     isVisible: false,
     boundingBox: {
       top: windowHeight / 4,
@@ -40,12 +40,12 @@ export function FavoriteItem({
 
   const { data: votes } = useSWR<Array<Vote>>(
     `/api/vote?chatId=${id}`,
-    fetcher
+    fetcher,
   );
 
   const { data: favorites } = useSWR<Array<Favorite>>(
     `/api/favorite?chatId=${id}`,
-    fetcher
+    fetcher,
   );
 
   const [messagesContainerRef, messagesEndRef] =
@@ -78,7 +78,7 @@ export function FavoriteItem({
                   favorites
                     ? favorites.find(
                         (favorite: Favorite) =>
-                          favorite.messageId === message.id
+                          favorite.messageId === message.id,
                       )
                     : undefined
                 }

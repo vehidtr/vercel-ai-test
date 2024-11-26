@@ -1,14 +1,14 @@
-import { auth } from "@/app/(auth)/auth";
+import { auth } from '@/app/(auth)/auth';
 import {
   getFavoritesByChatId,
   favoriteMessage,
   getFavoritesByUserId,
-} from "@/lib/db/queries";
+} from '@/lib/db/queries';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const chatId = searchParams.get("chatId");
-  const type = searchParams.get("type");
+  const chatId = searchParams.get('chatId');
+  const type = searchParams.get('type');
 
   /* if (!chatId) {
     return new Response("chatId is required", { status: 400 });
@@ -17,16 +17,16 @@ export async function GET(request: Request) {
   const session = await auth();
 
   if (!session || !session.user || !session.user.email) {
-    return new Response("Unauthorized", { status: 401 });
+    return new Response('Unauthorized', { status: 401 });
   }
   let favorites = null;
   switch (type) {
-    case "all":
+    case 'all':
       // biome-ignore lint: Forbidden non-null assertion.
       favorites = await getFavoritesByUserId({ id: session.user.id! });
 
       if (!favorites) {
-        return new Response("Not found", { status: 404 });
+        return new Response('Not found', { status: 404 });
       }
       return Response.json(favorites, { status: 200 });
 
@@ -34,7 +34,7 @@ export async function GET(request: Request) {
       favorites = await getFavoritesByChatId({ id: chatId });
 
       if (!favorites) {
-        return new Response("Not found", { status: 404 });
+        return new Response('Not found', { status: 404 });
       }
 
       return Response.json(favorites, { status: 200 });
@@ -55,13 +55,13 @@ export async function PATCH(request: Request) {
   } = await request.json();
 
   if (!chatId || !messageId) {
-    return new Response("messageId and status are required", { status: 400 });
+    return new Response('messageId and status are required', { status: 400 });
   }
 
   const session = await auth();
 
   if (!session || !session.user || !session.user.email) {
-    return new Response("Unauthorized", { status: 401 });
+    return new Response('Unauthorized', { status: 401 });
   }
 
   await favoriteMessage({
@@ -72,5 +72,5 @@ export async function PATCH(request: Request) {
     questionId,
   });
 
-  return new Response("Message favorite", { status: 200 });
+  return new Response('Message favorite', { status: 200 });
 }

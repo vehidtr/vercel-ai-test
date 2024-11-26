@@ -1,14 +1,14 @@
-import type { Message } from "ai";
-import { toast } from "sonner";
-import { useSWRConfig } from "swr";
-import { useCopyToClipboard } from "usehooks-ts";
-import { Tooltip } from "@radix-ui/react-tooltip";
+import type { Message } from 'ai';
+import { toast } from 'sonner';
+import { useSWRConfig } from 'swr';
+import { useCopyToClipboard } from 'usehooks-ts';
+import { Tooltip } from '@radix-ui/react-tooltip';
 
-import type { Favorite, Vote } from "@/lib/db/schema";
+import type { Favorite, Vote } from '@/lib/db/schema';
 import {
   getMessageIdFromAnnotations,
   getQuestionIdFromAnnotations,
-} from "@/lib/utils";
+} from '@/lib/utils';
 
 import {
   CopyIcon,
@@ -16,8 +16,8 @@ import {
   StarOutlinedIcon,
   ThumbDownIcon,
   ThumbUpIcon,
-} from "./icons";
-import { Button } from "./ui/button";
+} from './icons';
+import { Button } from './ui/button';
 
 export function MessageActions({
   chatId,
@@ -38,7 +38,7 @@ export function MessageActions({
   const [_, copyToClipboard] = useCopyToClipboard();
 
   if (isLoading) return null;
-  if (message.role === "user") return null;
+  if (message.role === 'user') return null;
   if (message.toolInvocations && message.toolInvocations.length > 0)
     return null;
 
@@ -50,7 +50,7 @@ export function MessageActions({
           variant="outline"
           onClick={async () => {
             await copyToClipboard(message.content as string);
-            toast.success("Copied to clipboard!");
+            toast.success('Copied to clipboard!');
           }}
         >
           <CopyIcon />
@@ -64,17 +64,17 @@ export function MessageActions({
           onClick={async () => {
             const messageId = getMessageIdFromAnnotations(message);
 
-            const upvote = fetch("/api/vote", {
-              method: "PATCH",
+            const upvote = fetch('/api/vote', {
+              method: 'PATCH',
               body: JSON.stringify({
                 chatId,
                 messageId,
-                type: "up",
+                type: 'up',
               }),
             });
 
             toast.promise(upvote, {
-              loading: "Upvoting Response...",
+              loading: 'Upvoting Response...',
               success: () => {
                 mutate<Array<Vote>>(
                   `/api/vote?chatId=${chatId}`,
@@ -82,7 +82,7 @@ export function MessageActions({
                     if (!currentVotes) return [];
 
                     const votesWithoutCurrent = currentVotes.filter(
-                      (vote) => vote.messageId !== message.id
+                      (vote) => vote.messageId !== message.id,
                     );
 
                     return [
@@ -94,12 +94,12 @@ export function MessageActions({
                       },
                     ];
                   },
-                  { revalidate: false }
+                  { revalidate: false },
                 );
 
-                return "Upvoted Response!";
+                return 'Upvoted Response!';
               },
-              error: "Failed to upvote response.",
+              error: 'Failed to upvote response.',
             });
           }}
         >
@@ -115,17 +115,17 @@ export function MessageActions({
           onClick={async () => {
             const messageId = getMessageIdFromAnnotations(message);
 
-            const downvote = fetch("/api/vote", {
-              method: "PATCH",
+            const downvote = fetch('/api/vote', {
+              method: 'PATCH',
               body: JSON.stringify({
                 chatId,
                 messageId,
-                type: "down",
+                type: 'down',
               }),
             });
 
             toast.promise(downvote, {
-              loading: "Downvoting Response...",
+              loading: 'Downvoting Response...',
               success: () => {
                 mutate<Array<Vote>>(
                   `/api/vote?chatId=${chatId}`,
@@ -133,7 +133,7 @@ export function MessageActions({
                     if (!currentVotes) return [];
 
                     const votesWithoutCurrent = currentVotes.filter(
-                      (vote) => vote.messageId !== message.id
+                      (vote) => vote.messageId !== message.id,
                     );
 
                     return [
@@ -145,12 +145,12 @@ export function MessageActions({
                       },
                     ];
                   },
-                  { revalidate: false }
+                  { revalidate: false },
                 );
 
-                return "Downvoted Response!";
+                return 'Downvoted Response!';
               },
-              error: "Failed to downvote response.",
+              error: 'Failed to downvote response.',
             });
           }}
         >
@@ -166,8 +166,8 @@ export function MessageActions({
             const messageId = getMessageIdFromAnnotations(message);
             const questionIdAnnotation = getQuestionIdFromAnnotations(message);
 
-            const isFavorite = fetch("/api/favorite", {
-              method: "PATCH",
+            const isFavorite = fetch('/api/favorite', {
+              method: 'PATCH',
               body: JSON.stringify({
                 chatId,
                 messageId,
@@ -177,7 +177,7 @@ export function MessageActions({
             });
 
             toast.promise(isFavorite, {
-              loading: favorite?.isFavorite ? "Unfavorite..." : "Favorite...",
+              loading: favorite?.isFavorite ? 'Unfavorite...' : 'Favorite...',
               success: () => {
                 mutate<Array<Favorite>>(
                   `/api/favorite?chatId=${chatId}`,
@@ -185,7 +185,7 @@ export function MessageActions({
                     if (!currentFavorites) return [];
 
                     const favoritesWithoutCurrent = currentFavorites.filter(
-                      (favorite: Favorite) => favorite.messageId !== message.id
+                      (favorite: Favorite) => favorite.messageId !== message.id,
                     );
 
                     return [
@@ -198,16 +198,16 @@ export function MessageActions({
                       },
                     ];
                   },
-                  { revalidate: false }
+                  { revalidate: false },
                 );
 
                 mutate<Array<Favorite>>(`/api/favorite?type=all`, {
                   revalidate: false,
                 });
 
-                return favorite?.isFavorite ? "Unfavorite!" : "Favorite!";
+                return favorite?.isFavorite ? 'Unfavorite!' : 'Favorite!';
               },
-              error: "Failed to favorite.",
+              error: 'Failed to favorite.',
             });
           }}
         >
