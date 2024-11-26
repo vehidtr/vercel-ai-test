@@ -1,10 +1,14 @@
-<p align="center">
-  An AI Chatbot.
-</p>
 
-## Walkthrough video
+ # An AI Chatbot.
+
+
+## Loom Walkthrough video
 [Watch the video](https://www.loom.com/share/cb9b5cb5f53a4a979e11c8058128088a?sid=c9ca44c4-84d8-4e7b-a93a-2991e2a73960)
 
+
+<br/>
+<br/>
+<br/>
 <p align="center">
   <a href="#features"><strong>Features</strong></a> ·
   <a href="#model-providers"><strong>Model Providers</strong></a> ·
