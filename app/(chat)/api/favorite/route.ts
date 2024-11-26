@@ -22,6 +22,7 @@ export async function GET(request: Request) {
   let favorites = null;
   switch (type) {
     case "all":
+      // biome-ignore lint: Forbidden non-null assertion.
       favorites = await getFavoritesByUserId({ id: session.user.id! });
 
       if (!favorites) {

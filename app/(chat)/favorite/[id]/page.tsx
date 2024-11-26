@@ -6,7 +6,7 @@ import { auth } from "@/app/(auth)/auth";
 import { FavoriteItem as PreviewFavorite } from "@/components/favorite";
 import { DEFAULT_MODEL_NAME, models } from "@/lib/ai/models";
 import { getFavoritesByUserId } from "@/lib/db/queries";
-import { Message } from "@/lib/db/schema";
+import type { Message } from "@/lib/db/schema";
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;

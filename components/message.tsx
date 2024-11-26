@@ -3,13 +3,13 @@
 import type { Message } from "ai";
 import cx from "classnames";
 import { motion } from "framer-motion";
-import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
+import { type Dispatch, Fragment, type SetStateAction, useEffect, useState } from "react";
 
 import type { Favorite, Vote } from "@/lib/db/schema";
 
 import type { UIBlock } from "./block";
 import { DocumentToolCall, DocumentToolResult } from "./document";
-import { GitIcon, SparklesIcon } from "./icons";
+import { SparklesIcon } from "./icons";
 import { Markdown } from "./markdown";
 import { MessageActions } from "./message-actions";
 import { PreviewAttachment } from "./preview-attachment";

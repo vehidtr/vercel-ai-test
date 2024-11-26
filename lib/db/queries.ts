@@ -16,7 +16,7 @@ import {
   message,
   vote,
   favorite,
-  Favorite,
+  type Favorite,
 } from "./schema";
 
 // Optionally, if not using email/pass login, you can

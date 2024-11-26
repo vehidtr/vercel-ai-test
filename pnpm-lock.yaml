@@ -2,7 +2,8 @@ lockfileVersion: 5.3
 
 specifiers:
   '@ai-sdk/openai': 1.0.0-canary.3
-  '@biomejs/biome': 1.9.4
+  '@biomejs/biome': ^1.9.4
+  '@biomejs/cli-linux-x64': 1.1.1
   '@radix-ui/react-alert-dialog': ^1.1.2
   '@radix-ui/react-dialog': ^1.1.2
   '@radix-ui/react-dropdown-menu': ^2.1.1
@@ -24,6 +25,7 @@ specifiers:
   '@vercel/postgres': ^0.10.0
   ai: 4.0.0-canary.9
   bcrypt-ts: ^5.0.2
+  biome: link:@biomejs/cli-linux-x64/biome
   class-variance-authority: ^0.7.0
   classnames: ^2.5.1
   clsx: ^2.1.1
@@ -127,12 +129,14 @@ dependencies:
 
 devDependencies:
   '@biomejs/biome': 1.9.4
+  '@biomejs/cli-linux-x64': 1.1.1
   '@tailwindcss/typography': 0.5.15_tailwindcss@3.4.15
   '@types/d3-scale': 4.0.8
   '@types/node': 22.9.3
   '@types/pdf-parse': 1.1.4
   '@types/react': 18.3.12
   '@types/react-dom': 18.3.1
+  biome: link:@biomejs/cli-linux-x64/biome
   drizzle-kit: 0.25.0
   eslint: 8.57.1
   eslint-config-next: 14.2.5_eslint@8.57.1+typescript@5.7.2
@@ -303,6 +307,13 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@biomejs/cli-linux-x64/1.1.1:
+    resolution: {integrity: sha512-KlcTmf2PrheSWrqmHPENFnFHxZYUvHZjJp7Y59sRAkHThCLljMbU1rNa8E4IWEM747wAn0BgkaKZ744GCDeShg==}
+    engines: {node: '>=14.*'}
+    cpu: [x64]
+    os: [linux]
+    dev: true
 
   /@biomejs/cli-linux-x64/1.9.4:
     resolution: {integrity: sha512-lRCJv/Vi3Vlwmbd6K+oQ0KhLHMAysN8lXoCI7XeHlxaajk06u7G+UsFSO01NAs5iYuWKmVZjmiOzJ0OJmGsMwg==}
@@ -2714,6 +2725,7 @@ packages:
 
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+    requiresBuild: true
 
   /color-string/1.9.1:
     resolution: {integrity: sha512-shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg==}

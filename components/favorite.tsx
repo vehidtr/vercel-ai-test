@@ -8,9 +8,9 @@ import { ChatHeader } from "@/components/chat-header";
 import { PreviewMessage } from "@/components/message";
 import { useScrollToBottom } from "@/components/use-scroll-to-bottom";
 import type { Favorite, Vote } from "@/lib/db/schema";
-import { extractQuestionAndAnswer, fetcher } from "@/lib/utils";
+import { fetcher } from "@/lib/utils";
 
-import { type UIBlock } from "./block";
+import type { UIBlock } from "./block";
 
 export function FavoriteItem({
   id,
