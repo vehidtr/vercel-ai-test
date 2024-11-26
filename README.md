@@ -58,4 +58,12 @@ pnpm install
 pnpm dev
 ```
 
+## If necessary create DB tables
+
+```bash
+pnpm drizzle-kit generate
+pnpm drizzle-kit migrate
+pnpm drizzle-kit push
+```
+
 Your app template should now be running on [localhost:3000](http://localhost:3000/).

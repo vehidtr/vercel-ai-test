@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
-import type { Attachment, Message } from 'ai';
-import { useChat } from 'ai/react';
-import { AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
-import useSWR, { useSWRConfig } from 'swr';
-import { useWindowSize } from 'usehooks-ts';
+import type { Attachment, Message } from "ai";
+import { useChat } from "ai/react";
+import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import useSWR, { useSWRConfig } from "swr";
+import { useWindowSize } from "usehooks-ts";
 
-import { ChatHeader } from '@/components/chat-header';
-import { PreviewMessage, ThinkingMessage } from '@/components/message';
-import { useScrollToBottom } from '@/components/use-scroll-to-bottom';
-import type { Vote } from '@/lib/db/schema';
-import { fetcher } from '@/lib/utils';
+import { ChatHeader } from "@/components/chat-header";
+import { PreviewMessage, ThinkingMessage } from "@/components/message";
+import { useScrollToBottom } from "@/components/use-scroll-to-bottom";
+import type { Favorite, Vote } from "@/lib/db/schema";
+import { fetcher } from "@/lib/utils";
 
-import { Block, type UIBlock } from './block';
-import { BlockStreamHandler } from './block-stream-handler';
-import { MultimodalInput } from './multimodal-input';
-import { Overview } from './overview';
+import { Block, type UIBlock } from "./block";
+import { BlockStreamHandler } from "./block-stream-handler";
+import { MultimodalInput } from "./multimodal-input";
+import { Overview } from "./overview";
 
 export function Chat({
   id,
@@ -43,7 +43,7 @@ export function Chat({
     body: { id, modelId: selectedModelId },
     initialMessages,
     onFinish: () => {
-      mutate('/api/history');
+      mutate("/api/history");
     },
   });
 
@@ -51,10 +51,10 @@ export function Chat({
     useWindowSize();
 
   const [block, setBlock] = useState<UIBlock>({
-    documentId: 'init',
-    content: '',
-    title: '',
-    status: 'idle',
+    documentId: "init",
+    content: "",
+    title: "",
+    status: "idle",
     isVisible: false,
     boundingBox: {
       top: windowHeight / 4,
@@ -66,7 +66,12 @@ export function Chat({
 
   const { data: votes } = useSWR<Array<Vote>>(
     `/api/vote?chatId=${id}`,
-    fetcher,
+    fetcher
+  );
+
+  const { data: favorites } = useSWR<Array<Favorite>>(
+    `/api/favorite?chatId=${id}`,
+    fetcher
   );
 
   const [messagesContainerRef, messagesEndRef] =
@@ -84,25 +89,35 @@ export function Chat({
         >
           {messages.length === 0 && <Overview />}
 
-          {messages.map((message, index) => (
-            <PreviewMessage
-              key={message.id}
-              chatId={id}
-              message={message}
-              block={block}
-              setBlock={setBlock}
-              isLoading={isLoading && messages.length - 1 === index}
-              vote={
-                votes
-                  ? votes.find((vote) => vote.messageId === message.id)
-                  : undefined
-              }
-            />
-          ))}
+          {messages.map((message, index) => {
+            return (
+              <PreviewMessage
+                key={message.id}
+                chatId={id}
+                message={message}
+                messages={messages}
+                block={block}
+                setBlock={setBlock}
+                isLoading={isLoading && messages.length - 1 === index}
+                vote={
+                  votes
+                    ? votes.find((vote) => vote.messageId === message.id)
+                    : undefined
+                }
+                favorite={
+                  favorites
+                    ? favorites.find(
+                        (favorite: any) => favorite.messageId === message.id
+                      )
+                    : undefined
+                }
+              />
+            );
+          })}
 
           {isLoading &&
             messages.length > 0 &&
-            messages[messages.length - 1].role === 'user' && (
+            messages[messages.length - 1].role === "user" && (
               <ThinkingMessage />
             )}
 
